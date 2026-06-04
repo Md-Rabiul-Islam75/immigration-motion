@@ -1,26 +1,112 @@
 @import "tailwindcss";
 
+/* ------------------------------------------------------------------ */
+/*  HnH Immigration — Design System                                    */
+/*  Brand: gold (#D9A900) on deep charcoal. Premium, editorial, calm.  */
+/* ------------------------------------------------------------------ */
+
+@theme {
+  /* Base surfaces */
+  --color-ink: #0a0a0c;          /* page background — near black */
+  --color-ink-soft: #101014;     /* elevated background */
+  --color-surface: #16161c;      /* cards / panels */
+  --color-surface-2: #1d1d25;    /* hover / nested panels */
+  --color-line: #26262f;         /* hairline borders */
+  --color-line-soft: #1c1c23;
+
+  /* Text */
+  --color-cream: #f4f1ea;        /* primary text */
+  --color-muted: #a3a09a;        /* secondary text */
+  --color-faint: #6f6d68;        /* tertiary / captions */
+
+  /* Brand gold (from logo #D9A900) */
+  --color-gold: #d9a900;
+  --color-gold-bright: #f5c542;
+  --color-gold-deep: #a37e00;
+  --color-gold-50: #fbf6e6;
+
+  /* Fonts */
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-fraunces), Georgia, "Times New Roman", serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  /* Easing + timing tokens reused across motion */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Custom keyframes exposed as Tailwind animations */
+  --animate-marquee: marquee 40s linear infinite;
+  --animate-shimmer: shimmer 2.5s linear infinite;
+  --animate-float: float 6s ease-in-out infinite;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes shimmer {
+  from { background-position: 200% 0; }
+  to { background-position: -200% 0; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: dark;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-ink);
+  color: var(--color-cream);
+  font-family: var(--font-sans);
+}
+
+/* Selection */
+::selection {
+  background-color: var(--color-gold);
+  color: #1a1500;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-ink);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-line);
+  border-radius: 999px;
+  border: 2px solid var(--color-ink);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-gold-deep);
+}
+
+/* Utility: gold gradient text */
+@utility text-gold-gradient {
+  background-image: linear-gradient(120deg, var(--color-gold-bright), var(--color-gold) 55%, var(--color-gold-deep));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Utility: subtle grain / radial glow background */
+@utility bg-glow {
+  background-image: radial-gradient(60% 50% at 50% 0%, rgba(217, 169, 0, 0.10), transparent 70%);
+}
+
+/* Hairline divider that fades at the edges */
+@utility divider-x {
+  background-image: linear-gradient(90deg, transparent, var(--color-line) 20%, var(--color-line) 80%, transparent);
 }
