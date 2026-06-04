@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { Check } from "lucide-react";
 import { Container } from "@/components/ui/container";
@@ -7,7 +8,7 @@ import { Eyebrow } from "@/components/ui/section-heading";
 import { Button } from "@/components/ui/button";
 import { Reveal, Stagger, StaggerItem } from "@/components/motion/reveal";
 import { fadeUp } from "@/components/motion/variants";
-import { stats } from "@/lib/site";
+import { aboutStats, site } from "@/lib/site";
 
 const highlights = [
   "Regulated, accountable, and transparent advice",
@@ -63,24 +64,41 @@ export function About() {
             </Reveal>
           </div>
 
-          {/* Stats panel */}
+          {/* Director photo + stat boxes */}
           <Reveal variants={fadeUp}>
-            <div className="relative overflow-hidden rounded-3xl border border-line bg-ink-soft p-8 sm:p-10">
-              <div
-                aria-hidden
-                className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-gold/10 blur-3xl"
-              />
-              <div className="relative grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-line bg-line">
-                {stats.map((stat, i) => (
+            <div className="relative">
+              <div className="relative overflow-hidden rounded-3xl border border-line bg-ink-soft">
+                <div className="relative aspect-[4/5] w-full">
+                  <Image
+                    src={site.director.photo}
+                    alt={site.director.name}
+                    fill
+                    sizes="(min-width: 1024px) 32rem, 100vw"
+                    className="object-cover object-top"
+                  />
+                  <div className="absolute inset-0 bg-[linear-gradient(to_top,var(--color-ink-soft),transparent_45%)]" />
+                </div>
+                {/* Name plate */}
+                <div className="absolute inset-x-0 bottom-0 p-6">
+                  <div className="font-display text-xl font-light text-cream">
+                    {site.director.name}
+                  </div>
+                  <div className="text-sm text-gold">{site.director.role}</div>
+                </div>
+              </div>
+
+              {/* Stat boxes */}
+              <div className="mt-4 grid grid-cols-2 gap-4">
+                {aboutStats.map((stat, i) => (
                   <motion.div
                     key={stat.label}
                     initial={{ opacity: 0, y: 16 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ delay: i * 0.08, duration: 0.6 }}
-                    className="bg-surface p-7"
+                    transition={{ delay: i * 0.1, duration: 0.6 }}
+                    className="rounded-2xl border border-line bg-surface/60 p-5"
                   >
-                    <div className="font-display text-4xl font-light text-gold">
+                    <div className="font-display text-3xl font-light text-gold">
                       {stat.value}
                     </div>
                     <div className="mt-1 text-sm text-muted">{stat.label}</div>

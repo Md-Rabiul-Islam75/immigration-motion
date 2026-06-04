@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/layout/page-header";
 import { About } from "@/components/sections/about";
+import { WhyChoose } from "@/components/sections/why-choose";
 import { Process } from "@/components/sections/process";
 import { Cta } from "@/components/sections/cta";
 
@@ -19,6 +20,7 @@ export default function AboutPage() {
         lede="We are a regulated Canadian immigration consultancy helping people build new lives with clarity and confidence."
       />
       <About />
+      <WhyChoose />
       <Process />
       <Cta />
     </>

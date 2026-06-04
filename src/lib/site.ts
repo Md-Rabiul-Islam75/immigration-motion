@@ -1,25 +1,30 @@
 /**
- * Central site configuration.
+ * Central site configuration — real content from hnhimmigration.ca.
  * Edit this file to update navigation, services, contact details, and stats.
- * All content is placeholder-ready — swap copy/numbers when real content arrives.
  */
 
 export const site = {
   name: "HnH Immigration",
-  legalName: "HnH Immigration Services Inc.",
-  tagline: "Your Pathway to Canada",
+  legalName: "HnH Immigration Inc.",
+  tagline: "Education · Immigration · Investment",
+  pitch: "Calgary's trusted immigration experts.",
   description:
-    "A regulated Canadian immigration consultancy guiding individuals, families, and businesses toward a confident new beginning.",
+    "HnH Immigration Inc. specializes in Canadian immigration and educational consulting — guiding individuals and families to a new life in Canada with transparent, reliable, and efficient service.",
   email: "info@hnhimmigration.ca",
-  phone: "+1 (000) 000-0000",
-  address: "Toronto, Ontario, Canada",
-  // Regulatory credential — update with the real RCIC / CICC license number.
-  license: "RCIC #R000000 · CICC Member",
+  phone: "+1 647-786-9467",
+  address: "Suite 2500 - 500 4th Ave. SW, Calgary, AB, T2P 2V6",
+  hours: "Mon – Fri : 10 am to 6 pm",
+  poweredBy: "Cyber Ace",
   social: {
     facebook: "#",
     instagram: "#",
     linkedin: "#",
     whatsapp: "#",
+  },
+  director: {
+    name: "Zain Alabedin Ghadai",
+    role: "Director & Lead Immigration Counselor",
+    photo: "/director-img.png",
   },
 } as const;
 
@@ -29,8 +34,8 @@ export const primaryNav: NavItem[] = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
   { label: "Services", href: "/services" },
-  { label: "Process", href: "/#process" },
-  { label: "Contact", href: "/contact" },
+  { label: "Blog", href: "/blog" },
+  { label: "Contact Us", href: "/contact" },
 ];
 
 export type Service = {
@@ -112,49 +117,127 @@ export type Step = { title: string; description: string };
 
 export const process: Step[] = [
   {
-    title: "Free Assessment",
+    title: "Guided Assessment",
     description:
-      "We review your profile, goals, and eligibility across every viable program — with no obligation.",
+      "We start with a guided assessment so you understand your readiness before choosing a package — clarity first, no pressure.",
   },
   {
-    title: "Tailored Strategy",
+    title: "The Right Next Step",
     description:
-      "You receive a clear, personalized roadmap detailing the best pathway, timeline, and document checklist.",
+      "Based on your profile and goals, we identify the best program and map out a clear, personalized pathway forward.",
   },
   {
-    title: "Application & Filing",
+    title: "Packages & Application",
     description:
-      "We prepare, review, and submit a complete, accurate application — keeping you informed at every stage.",
+      "Move into a package with confidence. We prepare, review, and submit a complete, accurate application on your behalf.",
   },
   {
-    title: "Landing in Canada",
+    title: "Your Canadian Dream",
     description:
-      "From approval to arrival, we support your transition so you can start your new chapter with confidence.",
+      "From approval to arrival, our around-the-clock support stays with you until you settle into your new life in Canada.",
   },
 ];
 
+/** Headline stats shown across the site. */
 export const stats: { value: string; label: string }[] = [
-  { value: "12+", label: "Years of experience" },
-  { value: "2,500+", label: "Successful applications" },
-  { value: "40+", label: "Countries served" },
-  { value: "98%", label: "Client satisfaction" },
+  { value: "99%", label: "Client Satisfaction" },
+  { value: "7+", label: "Years of Experience" },
+  { value: "600+", label: "Verified Clients" },
+];
+
+export const trustLine =
+  "Trusted by over 600+ successful clients across 20+ industries";
+
+/** Highlight stat boxes (about + why-choose-us sections). */
+export const aboutStats = [
+  { value: "42 hrs", label: "Application Approval Time" },
+  { value: "600+", label: "Successful Cases" },
+];
+
+export const whyStats = [
+  { value: "98%", label: "Visa Approval Rate" },
+  { value: "7+", label: "Years in Business" },
+];
+
+/** Reasons shown in the "Why Choose Us" section. */
+export const whyChoose: { title: string; description: string }[] = [
+  {
+    title: "Transparent & Honest",
+    description:
+      "Clear eligibility assessments and upfront guidance — we tell you where you stand, never what you want to hear.",
+  },
+  {
+    title: "Personalised Strategy",
+    description:
+      "Every case is unique. We build a pathway around your profile, occupation, and long-term goals.",
+  },
+  {
+    title: "End-to-End Support",
+    description:
+      "From your first consultation to landing day, our team stays with you through every form and milestone.",
+  },
+  {
+    title: "Proven Track Record",
+    description:
+      "600+ successful clients across 20+ industries trust HnH with one of life's biggest decisions.",
+  },
+];
+
+/** Trust badges shown in the footer and contact page. */
+export const badges: string[] = [
+  "Regulated Consultancy",
+  "100% Confidential",
+  "Free Initial Assessment",
+];
+
+export type Testimonial = {
+  quote: string;
+  name: string;
+  rating: number;
+};
+
+export const testimonials: Testimonial[] = [
+  {
+    quote:
+      "I had an outstanding experience with HnH Immigration Inc service. The entire process was smooth, efficient and stress free. The staff was very professional, knowledgeable and friendly. The team went above and beyond to ensure there were no delays. I truly appreciate the exceptional level of service.",
+    name: "Farah Nauman",
+    rating: 5,
+  },
+  {
+    quote:
+      "Thank you HnH Immigration Inc. for your excellent service. Thank you Mr. Zain and his team who are so helpful and loyal about their services. They always answered all my questions and concerns without getting annoyed. They explained the entire process well and made it stress free throughout. That is why I highly recommend HnH Immigration Inc to my friends.",
+    name: "Waleed Bahloul",
+    rating: 5,
+  },
+  {
+    quote:
+      "It was a great decision choosing HnH Immigration Inc. as a consultant in the study permit application for my younger brother. The team was really amazing and studied the case thoroughly, helping in every step of the procedure. Always available when needed — perfect to rely on!",
+    name: "Shuker Ullah",
+    rating: 5,
+  },
+  {
+    quote:
+      "Thank you for your exceptional service and professionalism throughout the visa process. Your dedication and prompt assistance made everything smooth and stress-free. Highly appreciated!",
+    name: "Shayan Anees",
+    rating: 5,
+  },
 ];
 
 export const faqs: { q: string; a: string }[] = [
   {
-    q: "Are you a regulated immigration consultant?",
-    a: "Yes. HnH Immigration operates as a regulated consultancy in good standing with the College of Immigration and Citizenship Consultants (CICC).",
+    q: "How does the process start?",
+    a: "Every journey begins with a guided assessment so you understand your readiness before choosing a package — clear, honest advice with no pressure.",
   },
   {
-    q: "How long does the immigration process take?",
-    a: "Timelines vary by program and individual circumstances. During your free assessment we provide realistic, current processing estimates for your specific pathway.",
+    q: "Where is HnH Immigration based?",
+    a: "We are based in Calgary, Alberta and proudly serve clients across Canada and around the world.",
   },
   {
     q: "Do you offer a free initial consultation?",
-    a: "Yes — your first eligibility assessment is complimentary and carries no obligation.",
+    a: "Yes — book a consultation and we'll review your situation and outline the pathway that best fits your goals.",
   },
   {
-    q: "Can you help if a previous application was refused?",
-    a: "Absolutely. We review refusal reasons, identify what changed, and build a stronger re-application or appeal strategy where appropriate.",
+    q: "What kind of support do you provide?",
+    a: "From initial consultation to completed application, our team guides you every step of the way with around-the-clock support.",
   },
 ];

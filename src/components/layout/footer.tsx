@@ -3,7 +3,7 @@ import { Mail, Phone, MapPin } from "lucide-react";
 import { Logo } from "./logo";
 import { FacebookIcon, InstagramIcon, LinkedinIcon } from "./social-icons";
 import { Container } from "@/components/ui/container";
-import { primaryNav, services, site } from "@/lib/site";
+import { badges, primaryNav, services, site } from "@/lib/site";
 
 export function Footer() {
   return (
@@ -17,9 +17,16 @@ export function Footer() {
             <p className="max-w-xs text-sm leading-relaxed text-muted">
               {site.description}
             </p>
-            <p className="text-xs uppercase tracking-wider text-faint">
-              {site.license}
-            </p>
+            <div className="flex flex-wrap gap-2">
+              {badges.map((badge) => (
+                <span
+                  key={badge}
+                  className="inline-flex items-center rounded-full border border-line bg-surface/50 px-3 py-1 text-xs text-cream/75"
+                >
+                  {badge}
+                </span>
+              ))}
+            </div>
           </div>
 
           {/* Navigation */}
@@ -107,6 +114,9 @@ export function Footer() {
             <Link href="/terms" className="transition-colors hover:text-gold">
               Terms of Service
             </Link>
+            <span>
+              Powered by <span className="text-gold">{site.poweredBy}</span>
+            </span>
           </div>
         </div>
       </Container>

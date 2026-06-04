@@ -4,7 +4,7 @@ import { PageHeader } from "@/components/layout/page-header";
 import { Container } from "@/components/ui/container";
 import { Reveal } from "@/components/motion/reveal";
 import { ContactForm } from "@/components/sections/contact-form";
-import { site } from "@/lib/site";
+import { badges, site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -21,7 +21,7 @@ const details = [
     href: `tel:${site.phone.replace(/[^+\d]/g, "")}`,
   },
   { Icon: MapPin, label: "Office", value: site.address },
-  { Icon: Clock, label: "Hours", value: "Mon–Fri · 9:00 – 18:00 (ET)" },
+  { Icon: Clock, label: "Hours", value: site.hours },
 ];
 
 export default function ContactPage() {
@@ -70,11 +70,21 @@ export default function ContactPage() {
                 ))}
               </div>
               <Reveal delay={0.2}>
-                <div className="rounded-2xl border border-line bg-ink-soft p-6">
+                <div className="flex flex-col gap-4 rounded-2xl border border-line bg-ink-soft p-6">
                   <p className="text-sm leading-relaxed text-muted">
-                    {site.license}. Your initial consultation is complimentary
-                    and confidential.
+                    Your initial assessment is complimentary and completely
+                    confidential — clear, honest guidance with no pressure.
                   </p>
+                  <div className="flex flex-wrap gap-2">
+                    {badges.map((badge) => (
+                      <span
+                        key={badge}
+                        className="inline-flex items-center rounded-full border border-line bg-surface/50 px-3 py-1 text-xs text-cream/75"
+                      >
+                        {badge}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </Reveal>
             </div>

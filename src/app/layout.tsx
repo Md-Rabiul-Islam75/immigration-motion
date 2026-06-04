@@ -3,6 +3,8 @@ import { Geist, Geist_Mono, Fraunces } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
+import { Preloader } from "@/components/layout/preloader";
+import { ScrollBackground } from "@/components/layout/scroll-background";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -64,6 +66,8 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} ${fraunces.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-ink text-cream selection:bg-gold">
+        <Preloader />
+        <ScrollBackground />
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />

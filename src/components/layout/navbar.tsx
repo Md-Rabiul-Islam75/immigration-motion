@@ -5,6 +5,7 @@ import { useState } from "react";
 import { AnimatePresence, motion, useScroll, useMotionValueEvent } from "framer-motion";
 import { Menu, X, ArrowRight } from "lucide-react";
 import { Logo } from "./logo";
+import { TopBar } from "./top-bar";
 import { Button } from "@/components/ui/button";
 import { primaryNav } from "@/lib/site";
 import { cn } from "@/lib/utils";
@@ -26,15 +27,32 @@ export function Navbar() {
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
         className="fixed inset-x-0 top-0 z-50"
       >
+        {/* Slim utility bar — collapses away once the nav shrinks to its pill. */}
+        <AnimatePresence initial={false}>
+          {!scrolled && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              className="overflow-hidden"
+            >
+              <TopBar />
+            </motion.div>
+          )}
+        </AnimatePresence>
+
         <div
           className={cn(
-            "mx-auto flex max-w-6xl items-center justify-between px-6 transition-all duration-500 ease-[var(--ease-out-expo)] lg:px-8",
+            "mx-auto flex max-w-6xl items-center justify-between px-6 transition-all duration-500 ease-out-expo lg:px-8",
             scrolled
               ? "mt-3 rounded-full border border-line/80 bg-ink-soft/80 py-2.5 shadow-[0_10px_40px_-20px_rgba(0,0,0,0.8)] backdrop-blur-xl lg:max-w-5xl"
               : "mt-0 border border-transparent py-4",
           )}
         >
-          <Logo width={104} height={63} className="shrink-0" />
+          <div className="flex shrink-0 items-center gap-3">
+            <Logo width={104} height={63} />
+          </div>
 
           <nav className="hidden items-center gap-1 md:flex">
             {primaryNav.map((item) => (
@@ -50,7 +68,7 @@ export function Navbar() {
 
           <div className="hidden items-center gap-3 md:flex">
             <Button href="/contact" size="sm" className="gap-1.5">
-              Book a consult
+              Book a Consultation
               <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
             </Button>
           </div>
