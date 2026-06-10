@@ -16,15 +16,7 @@ export function Preloader() {
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    // Show only once per browser session. Reading sessionStorage must happen
-    // on the client (after mount) to avoid a hydration mismatch, so this is a
-    // deliberate external-store sync rather than derived state.
-    if (typeof window !== "undefined" && sessionStorage.getItem("hnh-loaded")) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setDone(true);
-      return;
-    }
-
+    // Play the full intro sequence on every page load / refresh.
     const stepMs = 1150;
     const interval = setInterval(() => {
       setIndex((i) => {
@@ -37,10 +29,7 @@ export function Preloader() {
     }, stepMs);
 
     const finish = setTimeout(
-      () => {
-        sessionStorage.setItem("hnh-loaded", "1");
-        setDone(true);
-      },
+      () => setDone(true),
       stepMs * lines.length + 400,
     );
 

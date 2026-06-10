@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
-type VantaEffect = "net" | "globe" | "dots" | "rings" | "waves";
+type VantaEffect = "net" | "globe" | "dots" | "rings" | "waves" | "cells";
 
 type VantaInstance = { destroy: () => void };
 
@@ -99,6 +99,15 @@ export function VantaBackground({
           color: brand.gold,
           backgroundColor: brand.ink,
           backgroundAlpha: 0,
+        });
+      } else if (effect === "cells") {
+        const CELLS = (await import("vanta/dist/vanta.cells.min")).default;
+        created = CELLS({
+          ...common,
+          color1: 0x16243f,
+          color2: brand.gold,
+          size: 1.7,
+          speed: 1.1,
         });
       } else if (effect === "waves") {
         const WAVES = (await import("vanta/dist/vanta.waves.min")).default;

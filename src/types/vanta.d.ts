@@ -24,3 +24,7 @@ declare module "vanta/dist/vanta.waves.min" {
   const effect: (opts: Record<string, unknown>) => { destroy: () => void };
   export default effect;
 }
+declare module "vanta/dist/vanta.cells.min" {
+  const effect: (opts: Record<string, unknown>) => { destroy: () => void };
+  export default effect;
+}

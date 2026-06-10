@@ -7,7 +7,7 @@ import { Eyebrow } from "@/components/ui/section-heading";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/motion/reveal";
 import { TiltCard, Layer3D } from "@/components/motion/tilt-card";
-import { SectionFX } from "@/components/visual/section-fx";
+import { VantaBackground } from "@/components/visual/vanta-background";
 import { flyInRight, staggerContainer } from "@/components/motion/variants";
 import { whyChoose, whyStats } from "@/lib/site";
 
@@ -16,7 +16,12 @@ const icons = [ShieldCheck, Route, Headset, Award];
 export function WhyChoose() {
   return (
     <section className="relative overflow-hidden py-24 sm:py-32">
-      <SectionFX variant="aurora" />
+      {/* Live 3D cells field — distinct from globe / rings / dots / waves / net */}
+      <VantaBackground effect="cells" opacity={0.4} />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(70%_60%_at_50%_50%,transparent,var(--color-ink)_88%)]"
+      />
       {/* Section gets its own tone — warm gold wash over deep navy */}
       <div
         aria-hidden
