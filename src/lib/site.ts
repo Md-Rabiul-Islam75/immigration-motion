@@ -223,6 +223,87 @@ export const testimonials: Testimonial[] = [
   },
 ];
 
+export type Post = {
+  slug: string;
+  title: string;
+  excerpt: string;
+  category: string;
+  date: string;
+  readMins: number;
+  image: string;
+  author: string;
+};
+
+/** Blog / journal posts. Content is illustrative editorial copy. */
+export const posts: Post[] = [
+  {
+    slug: "express-entry-2026",
+    title: "Express Entry in 2026: what's changing and how to prepare",
+    excerpt:
+      "Category-based draws are reshaping the fastest route to permanent residence. Here's how to position your CRS profile for the year ahead.",
+    category: "Express Entry",
+    date: "May 28, 2026",
+    readMins: 7,
+    image: "/immigration-plane.jpg",
+    author: "Zain Alabedin Ghadai",
+  },
+  {
+    slug: "pnp-practical-guide",
+    title: "A practical guide to Provincial Nominee Programs",
+    excerpt:
+      "Each province runs its own streams with its own priorities. We break down how to match your occupation and goals to the right nomination.",
+    category: "PNP",
+    date: "May 14, 2026",
+    readMins: 9,
+    image: "/immigration-3.jpg",
+    author: "HnH Immigration",
+  },
+  {
+    slug: "study-to-pr",
+    title: "From study permit to PR: the international student pathway",
+    excerpt:
+      "Studying in Canada can be the first step toward staying for good. Map the journey from admission to post-graduation work to residency.",
+    category: "Study",
+    date: "April 30, 2026",
+    readMins: 6,
+    image: "/immigration-5.jpg",
+    author: "HnH Immigration",
+  },
+  {
+    slug: "family-sponsorship-checklist",
+    title: "The family sponsorship document checklist",
+    excerpt:
+      "Reuniting with loved ones starts with a complete, accurate file. Use our checklist to avoid the delays that trip up most applications.",
+    category: "Sponsorship",
+    date: "April 18, 2026",
+    readMins: 5,
+    image: "/immigration-4.jpg",
+    author: "HnH Immigration",
+  },
+  {
+    slug: "settling-in-calgary",
+    title: "Settling in Calgary: a newcomer's first 90 days",
+    excerpt:
+      "Banking, healthcare, housing, and community — a grounded look at the practical steps that make the first three months feel like home.",
+    category: "Settlement",
+    date: "April 2, 2026",
+    readMins: 8,
+    image: "/immigration2.jpg",
+    author: "HnH Immigration",
+  },
+  {
+    slug: "work-permits-lmia",
+    title: "Work permits & LMIA, explained simply",
+    excerpt:
+      "Employer-specific or open? What an LMIA really involves, and how a temporary work permit can become a long-term pathway to staying.",
+    category: "Work",
+    date: "March 20, 2026",
+    readMins: 7,
+    image: "/immigration-airport.jpg",
+    author: "HnH Immigration",
+  },
+];
+
 export const faqs: { q: string; a: string }[] = [
   {
     q: "How does the process start?",

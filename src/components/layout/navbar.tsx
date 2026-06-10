@@ -42,45 +42,54 @@ export function Navbar() {
           )}
         </AnimatePresence>
 
+        {/* Full-width band — pins flush to top:0 and gains a solid,
+            blurred surface once you start scrolling. */}
         <div
           className={cn(
-            "mx-auto flex max-w-6xl items-center justify-between px-6 transition-all duration-500 ease-out-expo lg:px-8",
+            "border-b transition-all duration-500 ease-out-expo",
             scrolled
-              ? "mt-3 rounded-full border border-line/80 bg-ink-soft/80 py-2.5 shadow-[0_10px_40px_-20px_rgba(0,0,0,0.8)] backdrop-blur-xl lg:max-w-5xl"
-              : "mt-0 border border-transparent py-4",
+              ? "border-line/80 bg-ink-soft/85 shadow-[0_10px_40px_-20px_rgba(0,0,0,0.8)] backdrop-blur-xl"
+              : "border-transparent",
           )}
         >
-          <div className="flex shrink-0 items-center gap-3">
-            <Logo width={104} height={63} />
-          </div>
-
-          <nav className="hidden items-center gap-1 md:flex">
-            {primaryNav.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="relative rounded-full px-4 py-2 text-sm text-cream/75 transition-colors duration-300 hover:text-cream"
-              >
-                {item.label}
-              </Link>
-            ))}
-          </nav>
-
-          <div className="hidden items-center gap-3 md:flex">
-            <Button href="/contact" size="sm" className="gap-1.5">
-              Book a Consultation
-              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
-            </Button>
-          </div>
-
-          <button
-            type="button"
-            onClick={() => setOpen(true)}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-line text-cream md:hidden"
-            aria-label="Open menu"
+          <div
+            className={cn(
+              "mx-auto flex max-w-6xl items-center justify-between px-6 transition-all duration-500 ease-out-expo lg:px-8",
+              scrolled ? "py-2.5" : "py-4",
+            )}
           >
-            <Menu className="h-5 w-5" />
-          </button>
+            <div className="flex shrink-0 items-center gap-3">
+              <Logo width={104} height={63} />
+            </div>
+
+            <nav className="hidden items-center gap-1 md:flex">
+              {primaryNav.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="relative rounded-full px-4 py-2 text-sm text-cream/75 transition-colors duration-300 hover:text-cream"
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </nav>
+
+            <div className="hidden items-center gap-3 md:flex">
+              <Button href="/contact" size="sm" className="gap-1.5">
+                Book a Consultation
+                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+              </Button>
+            </div>
+
+            <button
+              type="button"
+              onClick={() => setOpen(true)}
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-line text-cream md:hidden"
+              aria-label="Open menu"
+            >
+              <Menu className="h-5 w-5" />
+            </button>
+          </div>
         </div>
       </motion.header>
 

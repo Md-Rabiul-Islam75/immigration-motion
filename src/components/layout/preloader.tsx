@@ -16,13 +16,16 @@ export function Preloader() {
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    // Show only once per browser session.
+    // Show only once per browser session. Reading sessionStorage must happen
+    // on the client (after mount) to avoid a hydration mismatch, so this is a
+    // deliberate external-store sync rather than derived state.
     if (typeof window !== "undefined" && sessionStorage.getItem("hnh-loaded")) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setDone(true);
       return;
     }
 
-    const stepMs = 650;
+    const stepMs = 1150;
     const interval = setInterval(() => {
       setIndex((i) => {
         if (i >= lines.length - 1) {
@@ -68,7 +71,7 @@ export function Preloader() {
                 initial={{ y: 28, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 exit={{ y: -28, opacity: 0 }}
-                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
                 className="font-display text-2xl font-light tracking-tight text-cream sm:text-3xl"
               >
                 {lines[index]}
@@ -82,7 +85,7 @@ export function Preloader() {
             className="absolute bottom-0 left-0 h-px bg-gold/70"
             initial={{ width: "0%" }}
             animate={{ width: "100%" }}
-            transition={{ duration: 2.6, ease: "linear" }}
+            transition={{ duration: 5, ease: "linear" }}
           />
         </motion.div>
       )}

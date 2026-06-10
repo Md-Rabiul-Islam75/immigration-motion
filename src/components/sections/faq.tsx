@@ -6,6 +6,7 @@ import { Plus } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Reveal } from "@/components/motion/reveal";
+import { SectionFX } from "@/components/visual/section-fx";
 import { faqs } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
@@ -13,9 +14,10 @@ export function Faq() {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <section id="faq" className="relative bg-ink-soft py-24 sm:py-32">
+    <section id="faq" className="relative overflow-hidden bg-ink-soft py-24 sm:py-32">
+      <SectionFX variant="rays" />
       <div className="pointer-events-none absolute inset-x-0 top-0 h-px divider-x" />
-      <Container className="max-w-3xl">
+      <Container className="relative max-w-3xl">
         <SectionHeading
           eyebrow="Questions"
           title="Answers before you ask"

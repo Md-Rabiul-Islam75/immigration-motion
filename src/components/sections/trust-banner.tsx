@@ -2,11 +2,13 @@
 
 import { motion } from "framer-motion";
 import { Container } from "@/components/ui/container";
+import { SectionFX } from "@/components/visual/section-fx";
 import { stats, trustLine } from "@/lib/site";
 
 export function TrustBanner() {
   return (
     <section className="relative overflow-hidden border-y border-line bg-surface/40 py-14 backdrop-blur">
+      <SectionFX variant="beams" />
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(60%_120%_at_50%_50%,rgba(217,169,0,0.08),transparent_70%)]"

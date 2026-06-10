@@ -6,7 +6,9 @@ import { Container } from "@/components/ui/container";
 import { Eyebrow } from "@/components/ui/section-heading";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/motion/reveal";
-import { fadeUp, staggerContainer } from "@/components/motion/variants";
+import { TiltCard, Layer3D } from "@/components/motion/tilt-card";
+import { SectionFX } from "@/components/visual/section-fx";
+import { flyInRight, staggerContainer } from "@/components/motion/variants";
 import { whyChoose, whyStats } from "@/lib/site";
 
 const icons = [ShieldCheck, Route, Headset, Award];
@@ -14,6 +16,7 @@ const icons = [ShieldCheck, Route, Headset, Award];
 export function WhyChoose() {
   return (
     <section className="relative overflow-hidden py-24 sm:py-32">
+      <SectionFX variant="aurora" />
       {/* Section gets its own tone — warm gold wash over deep navy */}
       <div
         aria-hidden
@@ -80,21 +83,33 @@ export function WhyChoose() {
             {whyChoose.map((reason, i) => {
               const Icon = icons[i % icons.length];
               return (
-                <motion.div
+                <TiltCard
                   key={reason.title}
-                  variants={fadeUp}
-                  className="group flex flex-col gap-4 rounded-2xl border border-line bg-ink-soft p-6 transition-all duration-300 hover:-translate-y-1 hover:border-gold/35"
+                  variants={flyInRight}
+                  intensity={9}
+                  lift={16}
+                  className="h-full"
                 >
-                  <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-gold/15 text-gold transition-colors group-hover:bg-gold/25">
-                    <Icon className="h-5 w-5" strokeWidth={1.6} />
-                  </span>
-                  <h3 className="font-display text-lg font-light text-cream">
-                    {reason.title}
-                  </h3>
-                  <p className="text-sm leading-relaxed text-muted">
-                    {reason.description}
-                  </p>
-                </motion.div>
+                  <div className="group relative flex h-full flex-col gap-4 overflow-hidden rounded-2xl border border-line bg-ink-soft p-6 [transform-style:preserve-3d] transition-all duration-300 hover:border-gold/35 hover:shadow-depth-gold">
+                    <span
+                      aria-hidden
+                      className="pointer-events-none absolute inset-0 gloss opacity-0 transition-opacity duration-300 group-hover:animate-sheen group-hover:opacity-100"
+                    />
+                    <Layer3D depth={40}>
+                      <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-gold/15 text-gold transition-colors group-hover:bg-gold/25">
+                        <Icon className="h-5 w-5" strokeWidth={1.6} />
+                      </span>
+                    </Layer3D>
+                    <Layer3D depth={20}>
+                      <h3 className="font-display text-lg font-light text-cream">
+                        {reason.title}
+                      </h3>
+                      <p className="mt-2 text-sm leading-relaxed text-muted">
+                        {reason.description}
+                      </p>
+                    </Layer3D>
+                  </div>
+                </TiltCard>
               );
             })}
           </motion.div>

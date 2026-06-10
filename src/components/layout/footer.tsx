@@ -3,13 +3,15 @@ import { Mail, Phone, MapPin } from "lucide-react";
 import { Logo } from "./logo";
 import { FacebookIcon, InstagramIcon, LinkedinIcon } from "./social-icons";
 import { Container } from "@/components/ui/container";
+import { SectionFX } from "@/components/visual/section-fx";
 import { badges, primaryNav, services, site } from "@/lib/site";
 
 export function Footer() {
   return (
-    <footer className="relative mt-24 border-t border-line bg-ink-soft">
+    <footer className="relative mt-24 overflow-hidden border-t border-line bg-ink-soft">
+      <SectionFX variant="spotlight" className="opacity-60" />
       <div className="pointer-events-none absolute inset-x-0 top-0 h-px divider-x" />
-      <Container className="py-16">
+      <Container className="relative py-16">
         <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr_1fr_1.2fr]">
           {/* Brand */}
           <div className="flex flex-col gap-5">

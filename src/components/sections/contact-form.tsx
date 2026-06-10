@@ -2,8 +2,10 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Send, CheckCircle2 } from "lucide-react";
+import { Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { LottiePlayer } from "@/components/visual/lottie-player";
+import success from "@/components/visual/lottie/success.json";
 import { services } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
@@ -24,9 +26,9 @@ export function ContactForm() {
       <motion.div
         initial={{ opacity: 0, scale: 0.96 }}
         animate={{ opacity: 1, scale: 1 }}
-        className="flex flex-col items-center gap-4 rounded-3xl border border-gold/30 bg-ink-soft p-12 text-center"
+        className="flex flex-col items-center gap-4 rounded-3xl border border-gold/30 bg-ink-soft p-12 text-center shadow-depth-gold"
       >
-        <CheckCircle2 className="h-12 w-12 text-gold" strokeWidth={1.4} />
+        <LottiePlayer data={success} className="h-24 w-24" />
         <h3 className="font-display text-2xl font-light text-cream">
           Thank you — we&apos;ve received your message
         </h3>

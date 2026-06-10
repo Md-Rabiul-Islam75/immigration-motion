@@ -7,6 +7,10 @@ import { ArrowRight, ShieldCheck, Star, TrendingUp } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import { staggerContainer, fadeUp } from "@/components/motion/variants";
+import { TiltCard, Layer3D } from "@/components/motion/tilt-card";
+import { VantaBackground } from "@/components/visual/vanta-background";
+import { LottiePlayer } from "@/components/visual/lottie-player";
+import orbit from "@/components/visual/lottie/orbit.json";
 import { stats } from "@/lib/site";
 
 export function Hero() {
@@ -23,9 +27,12 @@ export function Hero() {
   return (
     <section
       ref={ref}
-      className="relative overflow-hidden bg-glow pt-36 pb-20 sm:pt-44 sm:pb-28"
+      className="relative overflow-hidden pt-36 pb-20 sm:pt-44 sm:pb-28"
     >
-      {/* Ambient background ornaments with scroll parallax */}
+      {/* Live 3D WebGL globe — the world your clients are moving toward. */}
+      <VantaBackground effect="globe" />
+
+      {/* Ambient parallax ornaments layered over the Vanta field */}
       <motion.div
         aria-hidden
         style={{ opacity: fade }}
@@ -102,63 +109,82 @@ export function Hero() {
             </motion.div>
           </motion.div>
 
-          {/* Director orb + floating stat card */}
+          {/* Director orb — tilts in 3D toward the cursor */}
           <motion.div
             initial={{ opacity: 0, scale: 0.92 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
             className="relative mx-auto hidden w-full max-w-md lg:block"
           >
-            {/* Rotating conic ring */}
-            <motion.div
-              aria-hidden
-              animate={{ rotate: 360 }}
-              transition={{ duration: 28, repeat: Infinity, ease: "linear" }}
-              className="absolute inset-0 rounded-full bg-[conic-gradient(from_0deg,transparent,rgba(217,169,0,0.35),transparent_55%)] blur-[2px]"
-            />
-            {/* Orb */}
-            <div className="relative aspect-square overflow-hidden rounded-full border border-gold/25 bg-ink-soft p-2">
-              <div className="relative h-full w-full overflow-hidden rounded-full">
-                <Image
-                  src="/banner.png"
-                  alt="HnH Immigration — your pathway to a new life in Canada"
-                  fill
-                  priority
-                  sizes="(min-width: 1024px) 28rem, 0px"
-                  className="object-cover object-top"
-                />
-                <div className="absolute inset-0 bg-[radial-gradient(70%_60%_at_50%_120%,rgba(6,11,24,0.85),transparent)]" />
-              </div>
-            </div>
+            <TiltCard intensity={11} lift={26} glare={false} className="relative">
+              {/* Looping Lottie orbit halo behind the orb */}
+              <LottiePlayer
+                data={orbit}
+                loop
+                className="pointer-events-none absolute -inset-[12%] z-0 opacity-80"
+              />
 
-            {/* Floating approval stat card */}
-            <motion.div
-              animate={{ y: [0, -12, 0] }}
-              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -left-4 bottom-10 flex items-center gap-3 rounded-2xl border border-line bg-ink-soft/90 px-5 py-4 shadow-[0_20px_50px_-20px_rgba(0,0,0,0.9)] backdrop-blur"
-            >
-              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-gold/15 text-gold">
-                <TrendingUp className="h-5 w-5" />
-              </span>
-              <div>
-                <div className="font-display text-2xl font-light text-gold">
-                  {stats[0].value}
+              {/* Rotating conic ring */}
+              <motion.div
+                aria-hidden
+                animate={{ rotate: 360 }}
+                transition={{ duration: 28, repeat: Infinity, ease: "linear" }}
+                className="absolute inset-0 rounded-full bg-[conic-gradient(from_0deg,transparent,rgba(217,169,0,0.35),transparent_55%)] blur-[2px]"
+              />
+
+              {/* Orb — lifted toward the viewer in 3D space */}
+              <Layer3D depth={40} className="relative">
+                <div className="relative aspect-square overflow-hidden rounded-full border border-gold/25 bg-ink-soft p-2 shadow-depth-gold">
+                  <div className="relative h-full w-full overflow-hidden rounded-full">
+                    <Image
+                      src="/banner.png"
+                      alt="HnH Immigration — your pathway to a new life in Canada"
+                      fill
+                      priority
+                      sizes="(min-width: 1024px) 28rem, 0px"
+                      className="object-cover object-top"
+                    />
+                    <div className="absolute inset-0 bg-[radial-gradient(70%_60%_at_50%_120%,rgba(6,11,24,0.85),transparent)]" />
+                  </div>
                 </div>
-                <div className="text-xs text-muted">{stats[0].label}</div>
-              </div>
-            </motion.div>
+              </Layer3D>
 
-            {/* Floating clients stat card */}
-            <motion.div
-              animate={{ y: [0, 12, 0] }}
-              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-              className="absolute -right-2 top-8 rounded-2xl border border-line bg-ink-soft/90 px-5 py-4 text-center shadow-[0_20px_50px_-20px_rgba(0,0,0,0.9)] backdrop-blur"
-            >
-              <div className="font-display text-2xl font-light text-gold">
-                {stats[2].value}
-              </div>
-              <div className="text-xs text-muted">{stats[2].label}</div>
-            </motion.div>
+              {/* Floating approval stat card — highest 3D layer */}
+              <Layer3D
+                depth={90}
+                className="absolute -left-4 bottom-10 z-30"
+              >
+                <motion.div
+                  animate={{ y: [0, -12, 0] }}
+                  transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+                  className="flex items-center gap-3 overflow-hidden rounded-2xl border border-line bg-ink-soft/90 px-5 py-4 shadow-depth backdrop-blur"
+                >
+                  <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-gold/15 text-gold">
+                    <TrendingUp className="h-5 w-5" />
+                  </span>
+                  <div>
+                    <div className="font-display text-2xl font-light text-gold">
+                      {stats[0].value}
+                    </div>
+                    <div className="text-xs text-muted">{stats[0].label}</div>
+                  </div>
+                </motion.div>
+              </Layer3D>
+
+              {/* Floating clients stat card */}
+              <Layer3D depth={70} className="absolute -right-2 top-8 z-30">
+                <motion.div
+                  animate={{ y: [0, 12, 0] }}
+                  transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                  className="rounded-2xl border border-line bg-ink-soft/90 px-5 py-4 text-center shadow-depth backdrop-blur"
+                >
+                  <div className="font-display text-2xl font-light text-gold">
+                    {stats[2].value}
+                  </div>
+                  <div className="text-xs text-muted">{stats[2].label}</div>
+                </motion.div>
+              </Layer3D>
+            </TiltCard>
           </motion.div>
         </div>
       </Container>

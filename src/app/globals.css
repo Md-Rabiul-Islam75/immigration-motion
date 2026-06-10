@@ -37,6 +37,15 @@
   --animate-marquee: marquee 40s linear infinite;
   --animate-shimmer: shimmer 2.5s linear infinite;
   --animate-float: float 6s ease-in-out infinite;
+  --animate-float-slow: float 9s ease-in-out infinite;
+  --animate-spin-slow: spin-slow 26s linear infinite;
+  --animate-pulse-glow: pulse-glow 4s ease-in-out infinite;
+  --animate-sheen: sheen 3.5s ease-in-out infinite;
+  --animate-tilt: tilt 8s ease-in-out infinite;
+
+  /* Layered 3D shadow tokens — soft ambient + crisp contact + gold rim */
+  --shadow-3d: 0 2px 4px rgba(0,0,0,0.3), 0 12px 24px -8px rgba(0,0,0,0.55), 0 40px 80px -32px rgba(0,0,0,0.8);
+  --shadow-3d-gold: 0 2px 4px rgba(0,0,0,0.3), 0 18px 50px -18px rgba(217,169,0,0.35), 0 50px 90px -40px rgba(0,0,0,0.85);
 }
 
 @keyframes marquee {
@@ -52,6 +61,72 @@
 @keyframes float {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-12px); }
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Breathing gold glow for orbs and badges */
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.05); }
+}
+
+/* Diagonal light sweep across glossy surfaces */
+@keyframes sheen {
+  0% { transform: translateX(-130%) skewX(-18deg); opacity: 0; }
+  35% { opacity: 0.55; }
+  70%, 100% { transform: translateX(230%) skewX(-18deg); opacity: 0; }
+}
+
+/* Gentle 3D wobble for floating ornaments */
+@keyframes tilt {
+  0%, 100% { transform: rotate3d(1, 1, 0, 0deg); }
+  33% { transform: rotate3d(1, 0.4, 0, 4deg); }
+  66% { transform: rotate3d(0.4, 1, 0, -4deg); }
+}
+
+/* --- Section background animations (used by <SectionFX />) --- */
+
+/* Perspective floor grid scrolling toward the viewer */
+@keyframes grid-pan {
+  from { background-position: 0 0; }
+  to { background-position: 0 var(--grid-step, 56px); }
+}
+
+/* Light beam sweeping across a band */
+@keyframes beam-sweep {
+  0% { transform: translateX(-30%) skewX(-12deg); opacity: 0; }
+  35% { opacity: 0.7; }
+  65% { opacity: 0.7; }
+  100% { transform: translateX(130%) skewX(-12deg); opacity: 0; }
+}
+
+/* Dotted field drifting diagonally */
+@keyframes dot-drift {
+  from { background-position: 0 0; }
+  to { background-position: 44px 44px; }
+}
+
+/* Gradient mesh blobs wandering */
+@keyframes mesh-float {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(var(--mx, 30px), var(--my, -24px), 0) scale(1.12); }
+}
+
+/* Horizontal wave loop (SVG seamless tile) */
+@keyframes wave-x {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* Concentric ring expanding outward */
+@keyframes ring-expand {
+  0% { transform: scale(0.55); opacity: 0; }
+  20% { opacity: 0.6; }
+  100% { transform: scale(1.7); opacity: 0; }
 }
 
 :root {
@@ -109,4 +184,59 @@ body {
 /* Hairline divider that fades at the edges */
 @utility divider-x {
   background-image: linear-gradient(90deg, transparent, var(--color-line) 20%, var(--color-line) 80%, transparent);
+}
+
+/* ------------------------------------------------------------------ */
+/*  3D / depth utilities                                               */
+/* ------------------------------------------------------------------ */
+
+/* Establish a shared perspective for child 3D transforms. */
+@utility perspective-near { perspective: 800px; }
+@utility perspective-far { perspective: 1400px; }
+
+/* Preserve 3D space so nested layers can lift off the card plane. */
+@utility preserve-3d { transform-style: preserve-3d; }
+@utility backface-hidden { backface-visibility: hidden; }
+
+/* Layered depth shadows. */
+@utility shadow-depth { box-shadow: var(--shadow-3d); }
+@utility shadow-depth-gold { box-shadow: var(--shadow-3d-gold); }
+
+/* Frosted glass panel used on elevated 3D cards. */
+@utility glass {
+  background-color: color-mix(in srgb, var(--color-surface) 55%, transparent);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+}
+
+/* Animated gradient ring border for premium cards. */
+@utility ring-gradient {
+  background:
+    linear-gradient(var(--color-ink-soft), var(--color-ink-soft)) padding-box,
+    linear-gradient(135deg, rgba(217,169,0,0.5), rgba(217,169,0,0.05) 40%, rgba(99,102,241,0.18) 75%, rgba(217,169,0,0.4)) border-box;
+  border: 1px solid transparent;
+}
+
+/* Conic aurora wash, sits behind hero / CTA content. */
+@utility bg-aurora {
+  background-image:
+    radial-gradient(45% 55% at 18% 12%, rgba(217,169,0,0.16), transparent 60%),
+    radial-gradient(40% 50% at 82% 18%, rgba(56,189,248,0.10), transparent 62%),
+    radial-gradient(55% 60% at 50% 110%, rgba(168,85,247,0.12), transparent 60%);
+}
+
+/* Gloss sweep overlay — pair with the `sheen` animation on a child span. */
+@utility gloss {
+  background: linear-gradient(110deg, transparent 0%, rgba(255,255,255,0.14) 45%, rgba(255,255,255,0.04) 55%, transparent 100%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
 }

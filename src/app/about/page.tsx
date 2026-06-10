@@ -18,6 +18,7 @@ export default function AboutPage() {
         eyebrow="About us"
         title="People first, paperwork second"
         lede="We are a regulated Canadian immigration consultancy helping people build new lives with clarity and confidence."
+        image="/immigration-3.jpg"
       />
       <About />
       <WhyChoose />

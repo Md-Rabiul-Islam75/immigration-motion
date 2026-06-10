@@ -4,12 +4,15 @@ import { motion } from "framer-motion";
 import { Quote, Star } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
-import { fadeUp, staggerContainer } from "@/components/motion/variants";
+import { TiltCard } from "@/components/motion/tilt-card";
+import { ParticleField } from "@/components/visual/particle-field";
+import { swingIn, staggerContainer } from "@/components/motion/variants";
 import { testimonials } from "@/lib/site";
 
 export function Testimonials() {
   return (
     <section className="relative overflow-hidden py-24 sm:py-32">
+      <ParticleField variant="stars" id="stars-testimonials" density={90} className="opacity-80" />
       <div
         aria-hidden
         className="pointer-events-none absolute left-1/2 top-0 h-[300px] w-[700px] -translate-x-1/2 rounded-full bg-gold/[0.06] blur-[120px]"
@@ -54,32 +57,37 @@ export function Testimonials() {
           className="mt-12 grid gap-6 md:grid-cols-2"
         >
           {testimonials.map((t) => (
-            <motion.figure
+            <TiltCard
               key={t.name}
-              variants={fadeUp}
-              className="group relative flex flex-col gap-6 rounded-3xl border border-line bg-surface/60 p-8 transition-colors duration-300 hover:border-gold/30"
+              as="div"
+              variants={swingIn}
+              intensity={7}
+              lift={14}
+              className="h-full"
             >
-              <Quote className="h-8 w-8 text-gold/40" />
-              <blockquote className="flex-1 text-sm leading-relaxed text-cream/90">
-                &ldquo;{t.quote}&rdquo;
-              </blockquote>
-              <div className="flex gap-0.5">
-                {[...Array(5)].map((_, i) => (
-                  <Star
-                    key={i}
-                    className={
-                      i < t.rating
-                        ? "h-4 w-4 fill-gold text-gold"
-                        : "h-4 w-4 text-line"
-                    }
-                  />
-                ))}
-              </div>
-              <figcaption className="border-t border-line/60 pt-5">
-                <div className="font-medium text-cream">{t.name}</div>
-                <div className="text-sm text-muted">Verified client</div>
-              </figcaption>
-            </motion.figure>
+              <figure className="group relative flex h-full flex-col gap-6 overflow-hidden rounded-3xl border border-line bg-surface/60 p-8 [transform-style:preserve-3d] transition-all duration-300 hover:border-gold/30 hover:shadow-depth-gold">
+                <Quote className="h-8 w-8 text-gold/40 transition-transform duration-300 group-hover:scale-110" />
+                <blockquote className="flex-1 text-sm leading-relaxed text-cream/90">
+                  &ldquo;{t.quote}&rdquo;
+                </blockquote>
+                <div className="flex gap-0.5">
+                  {[...Array(5)].map((_, i) => (
+                    <Star
+                      key={i}
+                      className={
+                        i < t.rating
+                          ? "h-4 w-4 fill-gold text-gold"
+                          : "h-4 w-4 text-line"
+                      }
+                    />
+                  ))}
+                </div>
+                <figcaption className="border-t border-line/60 pt-5">
+                  <div className="font-medium text-cream">{t.name}</div>
+                  <div className="text-sm text-muted">Verified client</div>
+                </figcaption>
+              </figure>
+            </TiltCard>
           ))}
         </motion.div>
       </Container>

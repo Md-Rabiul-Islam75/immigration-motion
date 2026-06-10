@@ -7,6 +7,8 @@ import { Container } from "@/components/ui/container";
 import { Eyebrow } from "@/components/ui/section-heading";
 import { Button } from "@/components/ui/button";
 import { Reveal, Stagger, StaggerItem } from "@/components/motion/reveal";
+import { TiltCard, Layer3D } from "@/components/motion/tilt-card";
+import { VantaBackground } from "@/components/visual/vanta-background";
 import { fadeUp } from "@/components/motion/variants";
 import { aboutStats, site } from "@/lib/site";
 
@@ -19,8 +21,15 @@ const highlights = [
 
 export function About() {
   return (
-    <section id="about" className="relative py-24 sm:py-32">
-      <Container>
+    <section id="about" className="relative overflow-hidden py-24 sm:py-32">
+      {/* Live 3D rings — a calmer counterpart to the hero net / blog globe */}
+      <VantaBackground effect="rings" opacity={0.5} />
+      {/* Keep the copy legible over the animation */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(70%_60%_at_50%_50%,transparent,var(--color-ink)_85%)]"
+      />
+      <Container className="relative">
         <div className="grid items-center gap-14 lg:grid-cols-2">
           {/* Copy */}
           <div className="flex flex-col gap-6">
@@ -64,27 +73,31 @@ export function About() {
             </Reveal>
           </div>
 
-          {/* Director photo + stat boxes */}
+          {/* Director photo + stat boxes — tilts in 3D toward the cursor */}
           <Reveal variants={fadeUp}>
-            <div className="relative">
-              <div className="relative overflow-hidden rounded-3xl border border-line bg-ink-soft">
-                <div className="relative aspect-[4/5] w-full">
-                  <Image
-                    src={site.director.photo}
-                    alt={site.director.name}
-                    fill
-                    sizes="(min-width: 1024px) 32rem, 100vw"
-                    className="object-cover object-top"
-                  />
-                  <div className="absolute inset-0 bg-[linear-gradient(to_top,var(--color-ink-soft),transparent_45%)]" />
-                </div>
-                {/* Name plate */}
-                <div className="absolute inset-x-0 bottom-0 p-6">
-                  <div className="font-display text-xl font-light text-cream">
-                    {site.director.name}
+            <TiltCard intensity={8} lift={20} glare={false} className="relative">
+              <div className="relative [transform-style:preserve-3d]">
+                <Layer3D depth={30}>
+                  <div className="relative overflow-hidden rounded-3xl border border-line bg-ink-soft shadow-depth">
+                    <div className="relative aspect-4/5 w-full">
+                      <Image
+                        src={site.director.photo}
+                        alt={site.director.name}
+                        fill
+                        sizes="(min-width: 1024px) 32rem, 100vw"
+                        className="object-cover object-top"
+                      />
+                      <div className="absolute inset-0 bg-[linear-gradient(to_top,var(--color-ink-soft),transparent_45%)]" />
+                    </div>
+                    {/* Name plate */}
+                    <div className="absolute inset-x-0 bottom-0 p-6">
+                      <div className="font-display text-xl font-light text-cream">
+                        {site.director.name}
+                      </div>
+                      <div className="text-sm text-gold">{site.director.role}</div>
+                    </div>
                   </div>
-                  <div className="text-sm text-gold">{site.director.role}</div>
-                </div>
+                </Layer3D>
               </div>
 
               {/* Stat boxes */}
@@ -105,7 +118,7 @@ export function About() {
                   </motion.div>
                 ))}
               </div>
-            </div>
+            </TiltCard>
           </Reveal>
         </div>
       </Container>

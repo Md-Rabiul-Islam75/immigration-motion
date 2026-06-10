@@ -4,6 +4,7 @@ import { PageHeader } from "@/components/layout/page-header";
 import { Container } from "@/components/ui/container";
 import { Reveal } from "@/components/motion/reveal";
 import { ContactForm } from "@/components/sections/contact-form";
+import { VantaBackground } from "@/components/visual/vanta-background";
 import { badges, site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -31,10 +32,17 @@ export default function ContactPage() {
         eyebrow="Contact"
         title="Let's talk about your future"
         lede="Book a free assessment or send us a message — we'll respond within one business day."
+        image="/immigration-5.jpg"
       />
 
-      <section className="pb-8 pt-4 sm:pb-12">
-        <Container>
+      <section className="relative overflow-hidden pb-8 pt-4 sm:pb-12">
+        {/* Live 3D wave surface — distinct from net / rings / dots / globe */}
+        <VantaBackground effect="waves" opacity={0.5} />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(80%_70%_at_50%_40%,transparent,var(--color-ink)_90%)]"
+        />
+        <Container className="relative">
           <div className="grid gap-10 lg:grid-cols-[1fr_1.3fr]">
             {/* Details */}
             <div className="flex flex-col gap-8">
